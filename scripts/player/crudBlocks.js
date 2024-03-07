@@ -1,8 +1,10 @@
 const infoDisplay = document.getElementById('info')
+const infoDisplay2 = document.getElementById('info2')
 let createdBlocks = document.getElementsByClassName('block')
 let setBlock = 0
 let activeBlockPng = 'bedrock.png'
 let activeBlock = 'none'
+let solidBlock = false
 
 document.addEventListener('keydown', (event) => {
     if (event.code == "ArrowRight"){
@@ -13,6 +15,10 @@ document.addEventListener('keydown', (event) => {
     }
     if (event.code == 'Space'){
         createNewBlock()
+    }
+    if (event.code == 'KeyQ'){
+        solidBlock = !solidBlock
+        displaySolidBlock()
     }
 })
 
@@ -29,19 +35,29 @@ const changeActiveBlock = (action) => {
 
     infoDisplay.style.display = 'flex'
     infoDisplay.textContent = activeBlock
-    setTimeout(closeInfoDisplay, 1000)
+    setTimeout(closeInfoDisplay, 2000)
+}
+
+const displaySolidBlock = () => {
+    if(solidBlock){
+        infoDisplay2.style.display = 'flex'
+        infoDisplay2.textContent = "Solid block"
+    }
+    else infoDisplay2.style.display = 'none'
 }
 
 const createNewBlock = () => {
     createdBlocks = document.getElementsByClassName('block')
     let createdBlock = false
     for(let i = 0; i < createdBlocks.length; i++){
-        if(createdBlocks.offsetLeft == cursorBlock.offsetLeft &&
-            createdBlocks.offsetTop == cursorBlock.offsetTop){
+        if(createdBlocks[i].offsetLeft == cursorBlock.offsetLeft &&
+            createdBlocks[i].offsetTop == cursorBlock.offsetTop){
                 createdBlock = true
                 createdBlocks[i].style.backgroundImage = `
                     url(./textures/blocks/${activeBlockPng})
                 `
+                if(solidBlock) createdBlocks[i].style.zIndex = 1
+                else createdBlocks[i].style.zIndex = 0
                 break
             }
     }
@@ -51,6 +67,8 @@ const createNewBlock = () => {
         newBlock.style.top = cursorBlock.offsetTop + 'px'
         newBlock.style.left = cursorBlock.offsetLeft + 'px'
         newBlock.style.backgroundImage = `url(./textures/blocks/${activeBlockPng}`
+        if(solidBlock) newBlock.style.zIndex = 1
+        else newBlock.style.zIndex = 0
         document.body.appendChild(newBlock)
     }
 }

@@ -12,27 +12,53 @@ document.body.appendChild(player)
 document.addEventListener("keydown", function(event){
     if(event.code == 'KeyW'){
         player.style.backgroundImage = 'url(./textures/player/up.png)'
-        y -= speed
-        player.style.top = y + 'px'
+        playerMove(-speed, "y")
     }
     if(event.code == 'KeyS'){
         player.style.backgroundImage = 'url(./textures/player/down.png)'
-        y += speed
-        player.style.top = y + 'px'
+        playerMove(speed, "y")
     }
     if(event.code == 'KeyA'){
         player.style.backgroundImage = 'url(./textures/player/left.png)'
-        x -= speed
-        player.style.left = x + 'px'
+        playerMove(-speed, "x")
     }
     if(event.code == 'KeyD'){
         player.style.backgroundImage = 'url(./textures/player/right.png)'
-        x += speed
-        player.style.left = x + 'px'
+        playerMove(speed, "x")
     }
     cameraMove(x, y)
 })
 
 const cameraMove = (x, y) => {
     window.scrollTo(x, y)
+}
+
+const playerMove = (speed, direction) => {
+    createdBlocks = document.getElementsByClassName('block')
+    for(let i = 0; i < createdBlocks.length; i++){
+        if(createdBlocks[i].style.zIndex == 1){
+            if(checkCollision(createdBlocks[i], speed)) return
+        }
+    }
+    if(direction == "x"){
+        x += speed
+        player.style.left = x + 'px'
+    }
+    else if (direction == "y"){
+        y += speed
+        player.style.top = y + 'px'
+    }
+}
+
+const checkCollision = (element, speed) => {
+    const rect1 = element.getBoundingClientRect()
+    const rect2 = player.getBoundingClientRect()
+    if (rect1.left < rect2.right + speed &&
+        rect1.right > rect2.left + speed &&
+        rect1.top < rect2.bottom + speed &&
+        rect1.bottom > rect2.top + speed) {
+      return true
+    } else {
+      return false
+    }
 }
