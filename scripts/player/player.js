@@ -1,64 +1,65 @@
 const player = document.createElement('div')
 player.classList.add('player')
 player.setAttribute('id', 'player')
-let x = 1000
-let y = 500
+let xPlayer = window.scrollX + window.innerWidth / 2
+let yPlayer = window.scrollY + window.innerHeight / 2
 const speed = 20
 
-player.style.top = y + 'px'
-player.style.left = x + 'px'
+player.style.top = yPlayer + 'px'
+player.style.left = xPlayer + 'px'
 document.body.appendChild(player)
 
 document.addEventListener("keydown", function(event){
     if(event.code == 'KeyW'){
-        player.style.backgroundImage = 'url(./textures/player/up.png)'
+        changeSprite("up")
         playerMove(-speed, "y")
     }
     if(event.code == 'KeyS'){
-        player.style.backgroundImage = 'url(./textures/player/down.png)'
+        changeSprite("down")
         playerMove(speed, "y")
     }
     if(event.code == 'KeyA'){
-        player.style.backgroundImage = 'url(./textures/player/left.png)'
+        changeSprite("left")
         playerMove(-speed, "x")
     }
     if(event.code == 'KeyD'){
-        player.style.backgroundImage = 'url(./textures/player/right.png)'
+        changeSprite("right")
         playerMove(speed, "x")
     }
-    cameraMove(x, y)
+    scrollWindowMove(xPlayer, yPlayer)
 })
-
-const cameraMove = (x, y) => {
-    window.scrollTo(x, y)
-}
 
 const playerMove = (speed, direction) => {
     createdBlocks = document.getElementsByClassName('block')
     for(let i = 0; i < createdBlocks.length; i++){
         if(createdBlocks[i].style.zIndex == 1){
-            if(checkCollision(createdBlocks[i], speed)) return
+            if(checkCollision(createdBlocks[i], player, speed)) return
         }
     }
     if(direction == "x"){
-        x += speed
-        player.style.left = x + 'px'
+        xPlayer += speed
+        player.style.left = xPlayer + 'px'
     }
     else if (direction == "y"){
-        y += speed
-        player.style.top = y + 'px'
+        yPlayer += speed
+        player.style.top = yPlayer + 'px'
     }
+    cameraMove(speed, direction)
 }
 
-const checkCollision = (element, speed) => {
-    const rect1 = element.getBoundingClientRect()
-    const rect2 = player.getBoundingClientRect()
-    if (rect1.left < rect2.right + speed &&
-        rect1.right > rect2.left + speed &&
-        rect1.top < rect2.bottom + speed &&
-        rect1.bottom > rect2.top + speed) {
-      return true
-    } else {
-      return false
+const changeSprite = (sprite) => {
+    switch(sprite){
+        case "up":
+            player.style.backgroundImage = 'url(./textures/player/up.png)'
+            break;
+        case "down":
+            player.style.backgroundImage = 'url(./textures/player/down.png)'
+            break;
+        case "left":
+            player.style.backgroundImage = 'url(./textures/player/left.png)'
+            break;
+        case "right":
+            player.style.backgroundImage = 'url(./textures/player/right.png)'
+            break;
     }
 }

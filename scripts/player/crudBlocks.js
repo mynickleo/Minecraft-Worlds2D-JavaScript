@@ -56,7 +56,9 @@ const createNewBlock = () => {
                 createdBlocks[i].style.backgroundImage = `
                     url(./textures/blocks/${activeBlockPng})
                 `
-                if(solidBlock) createdBlocks[i].style.zIndex = 1
+                if(solidBlock){ createdBlocks[i].style.zIndex = 1
+                    createdBlocks[i].style.boxShadow = "0px 0px 21px 0px rgba(34, 60, 80, 0.3)"
+                }
                 else createdBlocks[i].style.zIndex = 0
                 break
             }
@@ -67,7 +69,10 @@ const createNewBlock = () => {
         newBlock.style.top = cursorBlock.offsetTop + 'px'
         newBlock.style.left = cursorBlock.offsetLeft + 'px'
         newBlock.style.backgroundImage = `url(./textures/blocks/${activeBlockPng}`
-        if(solidBlock) newBlock.style.zIndex = 1
+        if(solidBlock){
+            newBlock.style.zIndex = 1
+            newBlock.style.boxShadow = "0px 0px 21px 0px rgba(34, 60, 80, 0.3)"
+        }
         else newBlock.style.zIndex = 0
         document.body.appendChild(newBlock)
     }

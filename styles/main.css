@@ -1,0 +1,111 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: #fff;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #000;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+.block{
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 100px;
+    width: 100px;
+    z-index: 0;
+}
+
+.player{
+    position: absolute;
+    background: url('../textures/player/Steve.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    height: 115px;
+    width: 93px;
+
+    z-index: 5;
+}
+
+.cursor{
+    position: absolute;
+    background: url('../textures/cursor/cursor.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    height: 100px;
+    width: 100px;
+
+    z-index: 4;
+}
+
+.cursor_block{
+    position: absolute;
+    background-color: rgba(100, 148, 237, 0.5);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+    height: 100px;
+    width: 100px;
+
+    z-index: 3;
+}
+
+.info{
+    position: fixed;
+    background-color: #ffffffbe;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 240px;
+    height: 50px;
+    
+    top: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+
+    z-index: 5;
+}
+
+.info2{
+    position: fixed;
+    background-color: #ffffffbe;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    width: 240px;
+    height: 50px;
+    
+    top: 10px;
+    right: 20px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px 0px rgba(34, 60, 80, 0.2);
+
+    z-index: 5;
+}
+
+.camera{
+    background-color: transparent;
+    position: absolute;
+    height: 1000px;
+    width: 1000px;
+    z-index: 17;
+}

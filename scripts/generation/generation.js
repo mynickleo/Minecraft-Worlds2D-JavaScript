@@ -21,8 +21,4 @@ const createBiom = (height, width) => {
     }
 }
 
-function random(min, max){
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-createBiom(1000, 2000);
+createBiom(2500, 2500);
